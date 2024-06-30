@@ -55,6 +55,8 @@ export class ExportForm {
    * Appends the export form to the provided container node.
    */
   appendTo(container: Node): void {
+    this.#dragTranslater.untranslate();
+
     container.appendChild(this.#domNode);
   }
 

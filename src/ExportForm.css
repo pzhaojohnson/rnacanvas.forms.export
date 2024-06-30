@@ -1,0 +1,12 @@
+.export-form {
+  position: absolute;
+  left: 75px;
+  top: 60px;
+
+  width: 312px;
+  height: 500px;
+}
+
+.content-container {
+  margin: 24px 0px 0px 21px;
+}

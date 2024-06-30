@@ -8,6 +8,8 @@ import { Explanation } from './Explanation';
 
 import { ExportButton } from './ExportButton';
 
+import { CloseButton } from './CloseButton';
+
 import { DownloadableFile } from '@rnacanvas/utilities';
 
 interface App {
@@ -41,6 +43,10 @@ export class ExportForm {
     let exportButton = ExportButton();
     exportButton.addEventListener('click', () => this.#export());
     contentContainer.append(exportButton);
+
+    let closeButton = CloseButton();
+    closeButton.addEventListener('click', () => this.remove());
+    this.#domNode.append(closeButton);
 
     this.#dragTranslater = new DragTranslater(this.#domNode);
   }

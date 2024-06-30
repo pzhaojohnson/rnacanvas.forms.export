@@ -5,7 +5,7 @@ export function ExportButton() {
 
   exportButton.textContent = 'Export';
 
-  exportButton.style.marginTop = '35px';
+  exportButton.style.marginTop = '36px';
 
   return exportButton;
 }

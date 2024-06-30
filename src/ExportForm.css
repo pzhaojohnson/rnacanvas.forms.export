@@ -3,7 +3,7 @@
   left: 107px;
   top: 77px;
 
-  width: 323px;
+  width: 325px;
   height: 483px;
 
   background-color: #f3f3ff;
@@ -19,6 +19,10 @@
 
 .content-container {
   margin: 24px 0px 0px 21px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: start;
 
   pointer-events: none;
 }

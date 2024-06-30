@@ -56,7 +56,7 @@ export class ExportForm {
     this.#scalingInput.value = `${this.#defaultScaling}`;
 
     let scalingField = TextInputField('Scaling', this.#scalingInput);
-    scalingField.style.marginTop = '15px';
+    scalingField.style.marginTop = '29px';
     contentContainer.append(scalingField);
 
     let exportButton = ExportButton();

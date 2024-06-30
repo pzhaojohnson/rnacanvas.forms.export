@@ -22,7 +22,7 @@ export function Explanation() {
 
   let bottomLine = document.createElement('p');
   bottomLine.classList.add(styles['explanation-text']);
-  bottomLine.append('SVG images can be opened, edited further and converted to other image formats using vector graphics softwares such as ', AdobeIllustrator, ' and ', Inkscape, '.');
+  bottomLine.append('SVG images can be opened, edited further and converted to other image formats in applications such as ', AdobeIllustrator, ' and ', Inkscape, '.');
   explanation.append(bottomLine);
 
   return explanation

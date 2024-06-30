@@ -9,6 +9,7 @@ function BoldSpan(textContent: string) {
 
 export function Explanation() {
   let explanation = document.createElement('div');
+  explanation.classList.add(styles['explanation']);
 
   let SVG = BoldSpan('SVG');
   let AdobeIllustrator = BoldSpan('Adobe Illustrator');

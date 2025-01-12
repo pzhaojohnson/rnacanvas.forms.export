@@ -9,6 +9,7 @@ export function ExportButton() {
   tooltip.textContent = 'Export the drawing. [ E ]';
 
   let domNode = document.createElement('div');
+  domNode.classList.add(styles['export-button']);
 
   domNode.append(button);
   domNode.style.borderRadius = button.style.borderRadius;

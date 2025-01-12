@@ -1,3 +1,5 @@
+.export-button {}
+
 .button {
   margin: 0px;
 
@@ -69,6 +71,10 @@
   pointer-events: none;
 
   display: none;
+}
+
+.export-button:hover .tooltip {
+  display: block;
 }
 
 @keyframes tooltip-fade-in {

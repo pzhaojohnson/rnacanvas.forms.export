@@ -11,7 +11,7 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.css$/i,
+        test: /\.module\.css$/i,
         use: [
           'style-loader',
           {
@@ -19,7 +19,7 @@ module.exports = {
             options: {
               modules: {
                 namedExport: true,
-                localIdentHashSalt: '18005136368346575', // make unique for every package
+                localIdentHashSalt: '23054102847230507', // make unique for each package
               },
             },
           },

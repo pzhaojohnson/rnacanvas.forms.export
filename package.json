@@ -1,7 +1,7 @@
 {
   "name": "@rnacanvas/forms.export",
-  "version": "1.2.5",
-  "description": "The RNAcanvas export form",
+  "version": "2.0.0",
+  "description": "The Export form",
   "repository": {
     "type": "git",
     "url": "https://github.com/pzhaojohnson/rnacanvas.forms.export.git"
@@ -27,6 +27,7 @@
     "webpack-cli": "^6.0.1"
   },
   "dependencies": {
+    "@rnacanvas/boxes": "^2.5.0",
     "@rnacanvas/draw.svg": "^3.6.0",
     "@rnacanvas/forms": "^2.0.0",
     "@rnacanvas/utilities": "^5.0.0",

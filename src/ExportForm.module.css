@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+.export-form {
+  position: absolute;
+  left: 107px;
+  top: 77px;
+
+  width: 331px;
+  height: 496px;
+
+  background-color: #f4f5ff;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  border: 1px solid #2b0744;
+  border-radius: 15px;
+  box-shadow: 0px 2px 16px rgba(0, 0, 0, 0.06);
+
+  padding: 30px 33px 50px 34px;
+}
+
+.title {
+  margin: 0px;
+
+  font-family: "Open Sans", sans-serif;
+  font-size: 29px;
+  font-weight: 700;
+  font-style: normal;
+  color: black;
+
+  user-select: none;
+  -webkit-user-select: none;
+
+  pointer-events: none;
+}
+
+.content-container {
+  margin: 27px 0px 0px 22px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+
+  pointer-events: none;
+}
+
+.text {
+  margin: 0px;
+
+  font-family: "Open Sans", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  font-style: normal;
+  color: black;
+
+  user-select: none;
+  -webkit-user-select: none;
+
+  pointer-events: none;
+}
+
+.text-input {
+  border: 1px solid #75758c;
+  border-radius: 2px;
+
+  outline: none;
+
+  width: 81px;
+
+  padding: 3px 6px;
+
+  font-family: "Open Sans", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  font-style: normal;
+  color: black;
+
+  pointer-events: auto;
+}
+
+.text-input:hover {
+  border-color: #0a0a0b;
+}
+
+.text-input:focus {
+  border-color: #0a0a0b;
+
+  outline: none;
+}
+
+.text-input-field {
+  font-family: "Open Sans", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  font-style: normal;
+  color: black;
+
+  user-select: none;
+  -webkit-user-select: none;
+
+  cursor: text;
+
+  pointer-events: auto;
+}
+
+.close-button {
+  position: absolute;
+  top: 13px;
+  right: 17px;
+
+  margin: 0px;
+
+  border: none;
+  outline: none;
+
+  padding: 3px 12px;
+  border-radius: 3px;
+
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  font-style: normal;
+  color: #871414;
+
+  cursor: pointer;
+
+  pointer-events: auto;
+
+  background-color: transparent;
+}
+
+.close-button:hover {
+  background-color: #cab8d99c;
+}
+
+.close-button:active {
+  background-color: #aa8eba9e;
+}

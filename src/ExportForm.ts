@@ -1,105 +1,112 @@
-import * as styles from './ExportForm.css';
-
-import { Header } from './Header';
-
-import { DragTranslater } from '@rnacanvas/forms';
-
-import { Explanation } from './Explanation';
-
-import { PositiveFiniteNumberInput } from './PositiveFiniteNumberInput';
-
-import { TextInputField } from './TextInputField';
+import * as styles from './ExportForm.module.css';
 
 import { ExportButton } from './ExportButton';
 
-import { CloseButton } from './CloseButton';
+import { DragTranslater } from '@rnacanvas/forms';
 
 import { DownloadableFile } from '@rnacanvas/utilities';
 
 import { Scaling } from '@rnacanvas/draw.svg';
 
-import { isPositiveFiniteNumber } from '@rnacanvas/value-check';
+import { Box } from '@rnacanvas/boxes';
 
-interface App {
-  drawing: {
-    /**
-     * The actual DOM node corresponding to the drawing of the app.
-     */
-    domNode: SVGSVGElement;
-  }
-}
+import { isFiniteNumber, isPositiveFiniteNumber } from '@rnacanvas/value-check';
+
+import { KeyBinding } from '@rnacanvas/utilities';
 
 export class ExportForm {
-  /**
-   * The actual DOM node corresponding to the export form.
-   */
-  #domNode = document.createElement('div');
+  #targetApp;
 
-  #scalingInput: HTMLInputElement;
+  readonly domNode = document.createElement('div');
 
-  #defaultScaling = 1;
+  #scalingInput;
 
-  #dragTranslater: DragTranslater;
+  #paddingInput;
 
-  constructor(private targetApp: App) {
-    this.#domNode.classList.add(styles['export-form']);
+  #dragTranslater;
 
-    this.#domNode.append(Header());
+  #exportKeyBinding = new KeyBinding('E', () => this.#export());
+
+  constructor(targetApp: App) {
+    this.#targetApp = targetApp;
+
+    this.domNode.classList.add(styles['export-form']);
+
+    // necessary for key bindings to work
+    this.domNode.tabIndex = 0;
+
+    this.domNode.append(Title());
 
     let contentContainer = document.createElement('div');
     contentContainer.classList.add(styles['content-container']);
-    this.#domNode.append(contentContainer);
+    this.domNode.append(contentContainer);
 
-    contentContainer.append(Explanation());
+    contentContainer.append(FormExplanation());
 
-    this.#scalingInput = PositiveFiniteNumberInput();
-    this.#scalingInput.value = `${this.#defaultScaling}`;
+    contentContainer.append(SVGImagesExplanation());
+
+    this.#scalingInput = ScalingInput();
 
     let scalingField = TextInputField('Scaling', this.#scalingInput);
-    scalingField.style.marginTop = '29px';
+    scalingField.style.marginTop = '40px';
     contentContainer.append(scalingField);
+
+    this.#paddingInput = PaddingInput();
+
+    let paddingField = TextInputField('Padding', this.#paddingInput);
+    paddingField.style.marginTop = '11px';
+    contentContainer.append(paddingField);
 
     let exportButton = ExportButton();
     exportButton.addEventListener('click', () => this.#export());
     contentContainer.append(exportButton);
 
-    let closeButton = CloseButton();
-    closeButton.addEventListener('click', () => this.remove());
-    this.#domNode.append(closeButton);
+    contentContainer.append(DefaultDownloadsLocation());
 
-    this.#dragTranslater = new DragTranslater(this.#domNode);
+    let closeButton = CloseButton();
+    closeButton.addEventListener('click', () => this.close());
+    this.domNode.append(closeButton);
+
+    this.#dragTranslater = new DragTranslater(this.domNode);
   }
 
-  /**
-   * Appends the export form to the provided container node.
-   */
   appendTo(container: Node): void {
     this.#dragTranslater.untranslate();
 
-    container.appendChild(this.#domNode);
+    container.appendChild(this.domNode);
   }
 
-  /**
-   * Removes the export form from any parent container node that it is in.
-   */
-  remove(): void {
-    this.#domNode.remove();
+  close(): void {
+    this.domNode.remove();
   }
 
   #export(): void {
     // should be an `SVGSVGElement` instance (since its a clone)
-    let clone = this.targetApp.drawing.domNode.cloneNode(true) as SVGSVGElement;
+    let clone = this.#targetApp.drawing.domNode.cloneNode(true) as SVGSVGElement;
 
     let cloneContainer = document.createElement('div');
     cloneContainer.style.position = 'fixed'; // should not affect other things in the document
     cloneContainer.style.height = '0px'; // make invisible
 
-    // always perform operations on SVG documents with the SVG document attached to the document body
+    // some operations on SVG documents don't work unless the SVG document is part of the document body
     document.body.append(cloneContainer);
     cloneContainer.append(clone);
 
+    let padding = Number.parseFloat(this.#paddingInput.value);
+    !isFiniteNumber(padding) ? padding = 500 : {};
+
+    // the bounding box of the content of the SVG document
+    let contentBBox = clone.getBBox();
+
+    let paddedBBox = Box.matching(contentBBox).padded(padding);
+
+    // set the padding of the cloned drawing
+    clone.setAttribute('viewbox', `${paddedBBox.minX} ${paddedBBox.minY} ${paddedBBox.width} ${paddedBBox.height}`);
+
     let scaling = Number.parseFloat(this.#scalingInput.value);
-    !isPositiveFiniteNumber(scaling) ? scaling = this.#defaultScaling : {};
+    !isPositiveFiniteNumber(scaling) ? scaling = 1 : {};
+
+    // scaling must be set after setting the padding
     (new Scaling(clone)).set(scaling);
 
     let name = document.title ? document.title : 'Drawing';
@@ -107,6 +114,156 @@ export class ExportForm {
     let file = new DownloadableFile(clone.outerHTML);
     file.downloadAs(name + '.svg', { type: 'text/plain' });
 
-    cloneContainer.remove(); // don't forget to remove
+    // don't forget to remove from the document body
+    cloneContainer.remove();
   }
+
+  get keyBindings(): Iterable<KeyBinding> {
+    return [
+      this.#exportKeyBinding,
+    ];
+  }
+}
+
+/**
+ * The app interface used by the Export form.
+ */
+interface App {
+  readonly drawing: {
+    /**
+     * The DOM node corresponding to the drawing of the app.
+     */
+    readonly domNode: SVGSVGElement;
+  }
+}
+
+function Title() {
+  let domNode = document.createElement('p');
+  domNode.classList.add(styles['title']);
+  domNode.textContent = 'Title';
+  return domNode;
+}
+
+function BoldSpan(textContent: string) {
+  let domNode = document.createElement('span');
+  domNode.textContent = textContent;
+  domNode.style.fontWeight = '700';
+  return domNode;
+}
+
+function FormExplanation() {
+  let SVG = BoldSpan('SVG');
+
+  let domNode = document.createElement('p');
+  domNode.classList.add(styles['text']);
+  domNode.append('Export the drawing as an ', SVG, ' image.');
+  return domNode
+}
+
+function SVGImagesExplanation() {
+  let AdobeIllustrator = BoldSpan('Adobe Illustrator');
+  let Inkscape = BoldSpan('Inkscape');
+
+  let domNode = document.createElement('p');
+  domNode.classList.add(styles['text']);
+  domNode.append('SVG images can be opened, edited further and converted to other image formats in vector graphics editors such as ', AdobeIllustrator, ' and ', Inkscape, '.');
+  domNode.style.marginTop = '24px';
+  return domNode;
+}
+
+function TextInput() {
+  let domNode = document.createElement('input');
+  domNode.type = 'text';
+  domNode.classList.add(styles['text-input']);
+  return domNode;
+}
+
+function TextInputField(name: string, textInput: HTMLInputElement) {
+  let nameSpan = document.createElement('span');
+  nameSpan.append(name);
+  nameSpan.style.paddingLeft = '8px';
+
+  let domNode = document.createElement('label');
+  domNode.classList.add(styles['text-input-field']);
+  domNode.append(textInput, nameSpan);
+  return domNode;
+}
+
+/**
+ * Coerces user input to be a positive finite number.
+ */
+function ScalingInput() {
+  let domNode = TextInput();
+
+  const defaultValue = '1';
+
+  domNode.value = defaultValue;
+
+  // the value of the input element when last focused
+  let lastValueOnFocus = defaultValue;
+
+  domNode.addEventListener('focus', () => lastValueOnFocus = domNode.value);
+
+  let handleSubmit = () => {
+    let value = Number.parseFloat(domNode.value);
+    !isPositiveFiniteNumber(value) ? domNode.value = lastValueOnFocus : {};
+  };
+
+  domNode.addEventListener('blur', handleSubmit);
+
+  domNode.addEventListener('keyup', event => {
+    if (event.key.toLowerCase() == 'enter') {
+      handleSubmit();
+    }
+  });
+
+  return domNode;
+}
+
+/**
+ * Coerces user input to be a finite number.
+ */
+function PaddingInput() {
+  let domNode = TextInput();
+
+  const defaultValue = '500';
+
+  domNode.value = defaultValue;
+
+  // the value of the input element when last focused
+  let lastValueOnFocus = defaultValue;
+
+  domNode.addEventListener('focus', () => lastValueOnFocus = domNode.value);
+
+  let handleSubmit = () => {
+    let value = Number.parseFloat(domNode.value);
+    !isFiniteNumber(value) ? domNode.value = lastValueOnFocus : {};
+  };
+
+  domNode.addEventListener('blur', handleSubmit);
+
+  domNode.addEventListener('keyup', event => {
+    if (event.key.toLowerCase() == 'enter') {
+      handleSubmit();
+    }
+  });
+
+  return domNode;
+}
+
+function DefaultDownloadsLocation() {
+  let Downloads = BoldSpan('Downloads');
+
+  let domNode = document.createElement('p');
+  domNode.classList.add(styles['text']);
+  domNode.append('SVG image files will be downloaded to your ', Downloads, " folder by default (unless you've changed this setting in your web browser).");
+  domNode.style.marginTop = '41px';
+  return domNode;
+}
+
+function CloseButton() {
+  let domNode = document.createElement('p');
+  domNode.classList.add(styles['close-button']);
+  domNode.textContent = 'Close';
+  return domNode;
 }

@@ -32,7 +32,7 @@ export class ExportForm {
 
     this.domNode.classList.add(styles['export-form']);
 
-    // necessary for key bindings to work
+    this.#exportKeyBinding.owner = this.domNode;
     this.domNode.tabIndex = 0;
 
     this.domNode.append(Title());
@@ -140,7 +140,7 @@ interface App {
 function Title() {
   let domNode = document.createElement('p');
   domNode.classList.add(styles['title']);
-  domNode.textContent = 'Title';
+  domNode.textContent = 'Export';
   return domNode;
 }
 

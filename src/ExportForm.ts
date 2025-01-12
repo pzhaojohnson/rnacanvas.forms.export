@@ -101,7 +101,7 @@ export class ExportForm {
     let paddedBBox = Box.matching(contentBBox).padded(padding);
 
     // set the padding of the cloned drawing
-    clone.setAttribute('viewbox', `${paddedBBox.minX} ${paddedBBox.minY} ${paddedBBox.width} ${paddedBBox.height}`);
+    clone.setAttribute('viewBox', `${paddedBBox.minX} ${paddedBBox.minY} ${paddedBBox.width} ${paddedBBox.height}`);
 
     let scaling = Number.parseFloat(this.#scalingInput.value);
     !isPositiveFiniteNumber(scaling) ? scaling = 1 : {};

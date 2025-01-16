@@ -96,7 +96,7 @@
   content: "";
 
   border-style: solid;
-  border-color: transparent transparent black transparent;
+  border-color: transparent black transparent transparent;
   border-width: 7px 19px;
 
   position: absolute;

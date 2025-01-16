@@ -48,7 +48,7 @@ export class ExportForm {
     this.#scalingInput = ScalingInput();
 
     let scalingField = TextInputField('Scaling', this.#scalingInput);
-    scalingField.style.marginTop = '40px';
+    scalingField.style.marginTop = '43px';
     contentContainer.append(scalingField);
 
     this.#paddingInput = PaddingInput();
@@ -257,7 +257,7 @@ function DefaultDownloadsLocation() {
   let domNode = document.createElement('p');
   domNode.classList.add(styles['text']);
   domNode.append('SVG image files will be downloaded to your ', Downloads, " folder by default (unless you've changed this setting in your web browser).");
-  domNode.style.marginTop = '41px';
+  domNode.style.marginTop = '43px';
   return domNode;
 }
 

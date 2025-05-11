@@ -48,7 +48,7 @@ export class ExportForm {
     this.#scalingInput = ScalingInput();
 
     let scalingField = TextInputField('Scaling', this.#scalingInput);
-    scalingField.style.marginTop = '43px';
+    scalingField.style.marginTop = '44px';
     contentContainer.append(scalingField);
 
     this.#paddingInput = PaddingInput();
@@ -167,7 +167,7 @@ function SVGImagesExplanation() {
   let domNode = document.createElement('p');
   domNode.classList.add(styles['text']);
   domNode.append('SVG images can be opened, edited further and converted to other image formats in vector graphics editors such as ', AdobeIllustrator, ' and ', Inkscape, '.');
-  domNode.style.marginTop = '24px';
+  domNode.style.marginTop = '26px';
   return domNode;
 }
 
@@ -257,7 +257,7 @@ function DefaultDownloadsLocation() {
   let domNode = document.createElement('p');
   domNode.classList.add(styles['text']);
   domNode.append('SVG image files will be downloaded to your ', Downloads, " folder by default (unless you've changed this setting in your web browser).");
-  domNode.style.marginTop = '43px';
+  domNode.style.marginTop = '45px';
   return domNode;
 }
 

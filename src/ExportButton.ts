@@ -17,7 +17,7 @@ export function ExportButton() {
   domNode.append(tooltip.domNode);
   domNode.style.position = 'relative';
 
-  domNode.style.marginTop = '45px';
+  domNode.style.marginTop = '47px';
 
   return domNode;
 }

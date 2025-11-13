@@ -1,6 +1,6 @@
 {
   "name": "@rnacanvas/forms.export",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "The Export form",
   "repository": {
     "type": "git",
@@ -17,9 +17,9 @@
     "@babel/core": "^7.23.7",
     "@babel/preset-env": "^7.23.7",
     "@babel/preset-typescript": "^7.23.3",
-    "babel-jest": "^29.7.0",
+    "babel-jest": "^30.2.0",
     "css-loader": "^7.1.2",
-    "jest": "^29.7.0",
+    "jest": "^30.2.0",
     "style-loader": "^4.0.0",
     "ts-loader": "^9.5.1",
     "typescript": "^5.3.3",

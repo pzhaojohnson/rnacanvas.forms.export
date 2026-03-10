@@ -194,6 +194,11 @@ function TextInputField(name: string, textInput: HTMLInputElement) {
   let domNode = document.createElement('label');
   domNode.classList.add(styles['text-input-field']);
   domNode.append(textInput, nameSpan);
+
+  textInput.addEventListener('focus', () => domNode.style.color = 'yellow');
+
+  textInput.addEventListener('blur', () => domNode.style.color = '');
+
   return domNode;
 }
 

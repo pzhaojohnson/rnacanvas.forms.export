@@ -109,10 +109,11 @@ export class ExportForm {
     // scaling must be set after setting the padding
     (new Scaling(clone)).set(scaling);
 
-    let name = document.title ? document.title : 'Drawing';
+    let name = this.#targetApp.drawing.name ?? 'Drawing';
 
-    let file = new DownloadableFile(clone.outerHTML);
-    file.downloadAs(name + '.svg', { type: 'text/plain' });
+    let file = new DownloadableFile(name + '.svg', clone.outerHTML, { type: 'text/plain' });
+
+    file.download();
 
     // don't forget to remove from the document body
     cloneContainer.remove();
@@ -134,6 +135,8 @@ interface App {
      * The DOM node corresponding to the drawing of the app.
      */
     readonly domNode: SVGSVGElement;
+
+    readonly name?: string;
   }
 }
 

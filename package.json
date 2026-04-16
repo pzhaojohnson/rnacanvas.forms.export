@@ -1,6 +1,6 @@
 {
   "name": "@rnacanvas/forms.export",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "The Export form",
   "repository": {
     "type": "git",
@@ -12,7 +12,7 @@
     "build": "webpack"
   },
   "author": "pzhaojohnson",
-  "license": "MIT",
+  "license": "GPL-3.0-only",
   "devDependencies": {
     "@babel/core": "^7.23.7",
     "@babel/preset-env": "^7.23.7",

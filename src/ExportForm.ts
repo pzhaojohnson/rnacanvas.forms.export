@@ -184,8 +184,14 @@ function SVGImagesExplanation() {
 
 function TextInput() {
   let domNode = document.createElement('input');
+
   domNode.type = 'text';
+
   domNode.classList.add(styles['text-input']);
+
+  // prevent unintentional propagation of paste events up the app DOM tree
+  domNode.addEventListener('paste', event => event.stopPropagation());
+
   return domNode;
 }
 

@@ -2,7 +2,7 @@ import * as styles from './ExportForm.module.css';
 
 import { ExportButton } from './ExportButton';
 
-import { DragTranslater } from '@rnacanvas/forms';
+import { DragHandler } from '@rnacanvas/forms';
 
 import { DownloadableFile } from '@rnacanvas/utilities';
 
@@ -23,7 +23,7 @@ export class ExportForm {
 
   #paddingInput;
 
-  #dragTranslater;
+  #dragHandler;
 
   #exportKeyBinding = new KeyBinding('E', () => this.#export());
 
@@ -67,17 +67,24 @@ export class ExportForm {
     closeButton.addEventListener('click', () => this.close());
     this.domNode.append(closeButton);
 
-    this.#dragTranslater = new DragTranslater(this.domNode);
+    this.#dragHandler = new DragHandler(this.domNode);
   }
 
   appendTo(container: Node): void {
-    this.#dragTranslater.untranslate();
+    this.reposition();
 
     container.appendChild(this.domNode);
   }
 
   close(): void {
     this.domNode.remove();
+  }
+
+  /**
+   * Undoes any dragging of the Export form done by the user.
+   */
+  reposition(): void {
+    this.#dragHandler.untranslate();
   }
 
   #export(): void {

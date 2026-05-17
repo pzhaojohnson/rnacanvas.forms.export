@@ -1,6 +1,6 @@
 {
   "name": "@rnacanvas/forms.export",
-  "version": "4.0.1",
+  "version": "4.1.0",
   "description": "The Export form",
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
     "babel-jest": "^30.2.0",
     "css-loader": "^7.1.2",
     "jest": "^30.2.0",
+    "jest-environment-jsdom": "^30.4.1",
     "style-loader": "^4.0.0",
     "ts-loader": "^9.5.1",
     "typescript": "^6.0.2",
@@ -29,9 +30,9 @@
   "dependencies": {
     "@rnacanvas/boxes": "^5.0.1",
     "@rnacanvas/draw.svg": "^3.6.0",
-    "@rnacanvas/forms": "^2.0.0",
+    "@rnacanvas/forms": "^4.0.1",
     "@rnacanvas/tooltips": "^1.3.0",
-    "@rnacanvas/utilities": "^6.5.0",
-    "@rnacanvas/value-check": "^1.6.2"
+    "@rnacanvas/utilities": "^7.2.0",
+    "@rnacanvas/value-check": "^2.6.1"
   }
 }

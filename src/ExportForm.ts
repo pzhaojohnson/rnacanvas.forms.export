@@ -1,5 +1,9 @@
 import * as styles from './ExportForm.module.css';
 
+import { PowerPointExport } from './PowerPointExport';
+
+import { PNGExport } from './PNGExport';
+
 import { ExportButton } from './ExportButton';
 
 import { DragHandler } from '@rnacanvas/forms';
@@ -18,6 +22,10 @@ export class ExportForm {
   #targetApp;
 
   readonly domNode = document.createElement('div');
+
+  readonly #powerPointExport = new PowerPointExport();
+
+  readonly #pngExport = new PNGExport();
 
   #scalingInput;
 
@@ -43,12 +51,14 @@ export class ExportForm {
 
     contentContainer.append(FormExplanation());
 
-    contentContainer.append(SVGImagesExplanation());
+    contentContainer.append(this.#powerPointExport.domNode);
+
+    contentContainer.append(this.#pngExport.domNode);
 
     this.#scalingInput = ScalingInput();
 
     let scalingField = TextInputField('Scaling', this.#scalingInput);
-    scalingField.style.marginTop = '46px';
+    scalingField.style.marginTop = '40px';
     contentContainer.append(scalingField);
 
     this.#paddingInput = PaddingInput();
@@ -61,7 +71,7 @@ export class ExportForm {
     exportButton.addEventListener('click', () => this.#export());
     contentContainer.append(exportButton);
 
-    contentContainer.append(DefaultDownloadsLocation());
+    contentContainer.append(SVGImagesExplanation());
 
     let closeButton = CloseButton();
     closeButton.addEventListener('click', () => this.close());
@@ -178,17 +188,6 @@ function FormExplanation() {
   return domNode
 }
 
-function SVGImagesExplanation() {
-  let AdobeIllustrator = BoldSpan('Adobe Illustrator');
-  let Inkscape = BoldSpan('Inkscape');
-
-  let domNode = document.createElement('p');
-  domNode.classList.add(styles['text']);
-  domNode.append('SVG images can be opened, edited further and converted to other image formats in vector graphics editors such as ', AdobeIllustrator, ' and ', Inkscape, '.');
-  domNode.style.marginTop = '30px';
-  return domNode;
-}
-
 function TextInput() {
   let domNode = document.createElement('input');
 
@@ -280,13 +279,14 @@ function PaddingInput() {
   return domNode;
 }
 
-function DefaultDownloadsLocation() {
-  let Downloads = BoldSpan('Downloads');
+function SVGImagesExplanation() {
+  let AdobeIllustrator = BoldSpan('Adobe Illustrator');
+  let Inkscape = BoldSpan('Inkscape');
 
   let domNode = document.createElement('p');
   domNode.classList.add(styles['text']);
-  domNode.append('SVG image files will be downloaded to your ', Downloads, " folder by default (unless you've changed this setting in your web browser).");
-  domNode.style.marginTop = '48px';
+  domNode.append('SVG images can be opened, edited further and converted to other image formats in vector graphics editors such as ', AdobeIllustrator, ' and ', Inkscape, '.');
+  domNode.style.marginTop = '34px';
   return domNode;
 }
 

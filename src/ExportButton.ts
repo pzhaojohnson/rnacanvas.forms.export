@@ -15,7 +15,7 @@ export function ExportButton() {
 
   domNode.style.position = 'relative';
 
-  domNode.style.marginTop = '51px';
+  domNode.style.marginTop = '44px';
 
   let tooltip = new Tooltip('Export the drawing. [ E ]');
   tooltip.owner = domNode;

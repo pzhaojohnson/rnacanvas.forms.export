@@ -1,0 +1,49 @@
+.powerpoint-export {
+  margin-top: 30px;
+
+  font-family: "Open Sans", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  font-style: normal;
+  color: white;
+
+  user-select: none;
+  -webkit-user-select: none;
+
+  pointer-events: auto;
+}
+
+.video-guide-link {
+  position: relative;
+
+  margin-right: 10px;
+
+  pointer-events: auto;
+
+  cursor: pointer;
+}
+
+.video-guide-link:hover .video-guide {
+  text-decoration: underline;
+}
+
+.video-guide {
+  pointer-events: auto;
+
+  cursor: pointer;
+
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.link-arrow {
+  width: 12px;
+
+  position: absolute;
+  top: 3px;
+  right: -10px;
+
+  pointer-events: auto;
+
+  cursor: pointer;
+}
